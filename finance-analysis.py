@@ -1,5 +1,5 @@
 
-# following sentdex:
+# following sentdex (vids 1-4):
 import datetime as dt
 import matplotlib.pyplot as plt
 from matplotlib import style
@@ -73,3 +73,30 @@ ax2.fill_between(df_volume.index.map(mdates.date2num), df_volume.values, 0)
 # ax1.plot(df.index, df['100ma'])
 # ax2.bar(df.index, df['Volume'])
 plt.show()
+
+
+
+
+# Basic structure for vid 4:
+
+# # following sentdex:
+# import datetime as dt
+# import matplotlib.pyplot as plt
+# from matplotlib import style
+# from matplotlib.finance import candlestick_ohlc
+# # matplotlib uses its own dating system.
+# import matplotlib.dates as mdates
+#
+# import pandas as pd
+# # don't forget to pip3 install this as well:
+# import pandas_datareader.data as web
+#
+# style.use('ggplot')
+#
+# df = pd.read_csv('tsla.csv', parse_dates = True, index_col = 0)
+#
+# df_ohlc = df['Adj Close'].resample('10D').ohlc()
+# df_volume = df['Volume'].resample('10D').sum()
+#
+# df_ohlc.reset_index(inplace = True)
+# df_ohlc['Date'] = df_ohlc['Date'].map(mdates.date2num)
