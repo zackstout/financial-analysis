@@ -1,6 +1,7 @@
 
 # following sentdex (vids 1-4):
 
+# it occurs to me that perhaps i should be .gitignoring the csvs...
 import datetime as dt
 import matplotlib.pyplot as plt
 from matplotlib import style
