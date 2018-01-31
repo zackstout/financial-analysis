@@ -24,11 +24,16 @@ def save_sp500_tickers():
     # skip row one with headers:
     for row in table.findAll('tr')[1:]:
         ticker = row.findAll('td')[0].text
+        if ticker == 'BRK.B':
+            ticker = 'BRK-B'
+        if ticker == 'BF.B':
+            ticker = 'BF-B'
         tickers.append(ticker)
+        print(ticker)
     # creates a file:
     with open("sp500tickers.pickle", "wb") as f:
         pickle.dump(tickers, f)
-    print(tickers)
+    # print(tickers)
 
     return tickers
 
@@ -48,7 +53,7 @@ def get_data_from_yahoo(reload_sp500=False):
     start = dt.datetime(2000, 1, 1)
     end = dt.datetime(2017, 12, 31)
 
-    for ticker in tickers[:200]:
+    for ticker in tickers[:300]:
         print(ticker)
         # not entirely sure how this {} is working syntactically, but it passes in the current thing:
         if not os.path.exists('stock_dfs/{}.csv'.format(ticker)):
@@ -61,6 +66,8 @@ def get_data_from_yahoo(reload_sp500=False):
 # get_data_from_yahoo()
 
 # Odd, i had to run it a few times to get through all 30 without an error, "can't read URL {0}".
+# found the problem: Wikipedia refers to BRK-B as BRK.B, and another one. Had to change that.
+# Well that was the main problem at least. It still sometimes fails and then works when you run it again.
 
 
 # to combine into a df:
@@ -83,7 +90,7 @@ def compile_data():
         if main_df.empty:
             main_df = df
         else:
-            #with outer, we'll get some NaNs, but we'll never lose data.
+            #with OUTER JOIN, we'll get some NaNs, but we'll never lose data.
             main_df = main_df.join(df, how='outer')
 
         if count % 10 == 0:
@@ -98,8 +105,8 @@ def compile_data():
 def visualize_data():
     df = pd.read_csv('sp500_joined_closes.csv');
     # good this is working:
-    # df['MMM'].plot()
-    # plt.show()
+    df['MMM'].plot()
+    plt.show()
 
     # Awesome, just runs a correlator function for you:
     df_corr = df.corr()
@@ -130,7 +137,7 @@ def visualize_data():
     heatmap.set_clim(-1,1)
     plt.tight_layout()
     # ah, it works!
-    plt.show()
+    # plt.show()
 
 
 visualize_data()

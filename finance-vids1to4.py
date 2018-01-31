@@ -1,5 +1,6 @@
 
 # following sentdex (vids 1-4):
+# https://pythonprogramming.net/getting-stock-prices-python-programming-for-finance/
 
 # it occurs to me that perhaps i should be .gitignoring the csvs...
 import datetime as dt
